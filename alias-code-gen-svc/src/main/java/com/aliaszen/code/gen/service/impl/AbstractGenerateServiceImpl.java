@@ -2,9 +2,10 @@ package com.aliaszen.code.gen.service.impl;
 
 import com.aliaszen.code.gen.dto.JdbcInfo;
 import com.aliaszen.code.gen.dto.JdbcParam;
+import com.aliaszen.code.gen.service.DruidService;
 import com.aliaszen.code.gen.strategy.DbStrategy;
+import com.alibaba.druid.util.JdbcUtils;
 import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 
 import javax.annotation.Resource;
 import java.sql.Connection;
@@ -28,6 +29,9 @@ public class AbstractGenerateServiceImpl {
     @Resource
     private DbStrategy dbStrategy;
 
+    @Resource
+    private DruidService druidService;
+
     protected <T> List<T> list(JdbcParam jdbcParam, Class<T> clazz) {
         JdbcInfo jdbcInfo = dbStrategy.createDataSourceInfo(jdbcParam);
 
@@ -36,10 +40,11 @@ public class AbstractGenerateServiceImpl {
         ResultSet resultSet = null;
         List<Map<String, Object>> mapList = new ArrayList<>();
         try {
-            Class.forName(jdbcInfo.getDriverName());
-            DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(jdbcInfo.getUrl(), jdbcParam.getUserName(),
-                    jdbcParam.getPassword()).build();
-            connection = dataSourceConfig.getConn();
+            String driverClassName = JdbcUtils.getDriverClassName(jdbcInfo.getUrl());
+            Class.forName(driverClassName);
+
+            connection = druidService.getOrCreateConnection(driverClassName, jdbcInfo.getUrl(),
+                    jdbcParam.getUserName(), jdbcParam.getPassword());
             preparedStatement = connection.prepareStatement(jdbcInfo.getSql());
 
             for (int i = 0, len = jdbcInfo.getSqlArgs().size(); i < len; i++) {
@@ -61,20 +66,9 @@ public class AbstractGenerateServiceImpl {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-
-                if (connection != null) {
-                    connection.close();
-                }
-                if (preparedStatement != null) {
-                    connection.close();
-                }
-                if (resultSet != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            JdbcUtils.close(resultSet);
+            JdbcUtils.close(preparedStatement);
+            JdbcUtils.close(connection);
         }
         return BeanUtils.mapsToBeans(mapList, clazz);
     }

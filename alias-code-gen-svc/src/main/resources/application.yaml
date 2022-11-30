@@ -6,3 +6,7 @@ server:
 spring:
   jackson:
     default-property-inclusion: non_null
+
+logging:
+  level:
+    com.aliaszen.code.gen: debug

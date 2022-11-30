@@ -24,8 +24,6 @@ public class JdbcInfo {
 
     private String url;
 
-    private String driverName;
-
     private String sql;
 
     private List<Object> sqlArgs;

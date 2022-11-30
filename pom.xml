@@ -28,6 +28,7 @@
         <mysql.version>5.1.49</mysql.version>
         <mybatisplus.version>3.5.2</mybatisplus.version>
         <cglib.version>3.3.0</cglib.version>
+        <druid.version>1.2.15</druid.version>
     </properties>
 
     <dependencyManagement>
@@ -51,6 +52,11 @@
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
                 <version>${cglib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

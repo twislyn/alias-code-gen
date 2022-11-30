@@ -21,7 +21,7 @@ public class DbServiceImpl implements DbService {
     public JdbcInfo createMySqlJdbcInfo(JdbcParam jdbcParam) {
         String url = "jdbc:mysql://" + jdbcParam.getHost() + "/" + jdbcParam.getDbName();
         String sql = "select TABLE_NAME as tableName,TABLE_COMMENT as tableComment from information_schema.`TABLES` where TABLE_SCHEMA = ?";
-        return JdbcInfo.builder().url(url).driverName("com.mysql.jdbc.Driver").sql(sql).sqlArgs(Collections.singletonList(jdbcParam.getDbName())).build();
+        return JdbcInfo.builder().url(url).sql(sql).sqlArgs(Collections.singletonList(jdbcParam.getDbName())).build();
     }
 
     @Override
