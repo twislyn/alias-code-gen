@@ -12,5 +12,5 @@ import com.alibaba.druid.pool.DruidPooledConnection;
 public interface DruidService {
 
     DruidPooledConnection getOrCreateConnection(String driver, String url, String userName,
-                                                String password) throws Exception;
+                                                String password, String dbType) throws Exception;
 }

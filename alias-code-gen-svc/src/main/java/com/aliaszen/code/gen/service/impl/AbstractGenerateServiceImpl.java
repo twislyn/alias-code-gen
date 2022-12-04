@@ -6,6 +6,7 @@ import com.aliaszen.code.gen.service.DruidService;
 import com.aliaszen.code.gen.strategy.DbStrategy;
 import com.alibaba.druid.util.JdbcUtils;
 import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.sql.Connection;
@@ -44,11 +45,13 @@ public class AbstractGenerateServiceImpl {
             Class.forName(driverClassName);
 
             connection = druidService.getOrCreateConnection(driverClassName, jdbcInfo.getUrl(),
-                    jdbcParam.getUserName(), jdbcParam.getPassword());
+                    jdbcParam.getUserName(), jdbcParam.getPassword(), jdbcParam.getDbType());
             preparedStatement = connection.prepareStatement(jdbcInfo.getSql());
 
-            for (int i = 0, len = jdbcInfo.getSqlArgs().size(); i < len; i++) {
-                preparedStatement.setObject(i + 1, jdbcInfo.getSqlArgs().get(i));
+            if(!CollectionUtils.isEmpty(jdbcInfo.getSqlArgs())) {
+                for (int i = 0, len = jdbcInfo.getSqlArgs().size(); i < len; i++) {
+                    preparedStatement.setObject(i + 1, jdbcInfo.getSqlArgs().get(i));
+                }
             }
             resultSet = preparedStatement.executeQuery();
 
