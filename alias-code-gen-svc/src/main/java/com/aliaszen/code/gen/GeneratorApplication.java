@@ -25,11 +25,10 @@ public class GeneratorApplication {
         Environment env = application.getEnvironment();
         String ip = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");
-        String path = env.getProperty("server.servlet.context-path");
         log.info("\n----------------------------------------------------------\n\t" +
                 "Generator Application is running! Access URLs:\n\t" +
-                "Local: \t\thttp://localhost:" + port + path + "/\n\t" +
-                "External: \thttp://" + ip + ":" + port + path + "/\n\t" +
+                "Local: \t\thttp://localhost:" + port + "/\n\t" +
+                "External: \thttp://" + ip + ":" + port + "/\n\t" +
                 "----------------------------------------------------------");
     }
 

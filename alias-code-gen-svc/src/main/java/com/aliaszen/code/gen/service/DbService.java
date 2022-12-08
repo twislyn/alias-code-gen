@@ -1,7 +1,6 @@
 package com.aliaszen.code.gen.service;
 
 import com.aliaszen.code.gen.dto.JdbcParam;
-import com.aliaszen.code.gen.dto.JdbcInfo;
 
 /**
  * 数据库 服务类
@@ -12,11 +11,11 @@ import com.aliaszen.code.gen.dto.JdbcInfo;
  */
 public interface DbService {
 
-    JdbcInfo createMySqlJdbcInfo(JdbcParam jdbcParam);
+    String createMySqlJdbcUrl(JdbcParam jdbcParam);
 
-    JdbcInfo createPostgreSqlJdbcInfo(JdbcParam jdbcParam);
+    String createPostgreSqlJdbcUrl(JdbcParam jdbcParam);
 
-    JdbcInfo createOracleJdbcInfo(JdbcParam jdbcParam);
+    String createOracleJdbcUrl(JdbcParam jdbcParam);
 
-    JdbcInfo createSqlServerJdbcInfo(JdbcParam jdbcParam);
+    String createSqlServerJdbcUrl(JdbcParam jdbcParam);
 }

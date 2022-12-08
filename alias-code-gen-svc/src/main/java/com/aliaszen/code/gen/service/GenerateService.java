@@ -1,5 +1,6 @@
 package com.aliaszen.code.gen.service;
 
+import com.aliaszen.code.gen.dto.GeneratorParam;
 import com.aliaszen.code.gen.dto.JdbcParam;
 import com.aliaszen.code.gen.dto.DictKeyValue;
 import com.aliaszen.code.gen.dto.TableInfo;
@@ -18,4 +19,6 @@ public interface GenerateService {
     List<DictKeyValue> getDbType();
 
     List<TableInfo> getTableList(JdbcParam jdbcParam);
+
+    void generateCode(GeneratorParam generatorParam);
 }

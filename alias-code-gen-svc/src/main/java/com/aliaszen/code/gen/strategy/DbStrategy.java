@@ -1,9 +1,8 @@
 package com.aliaszen.code.gen.strategy;
 
+import com.aliaszen.code.gen.constant.Constants;
 import com.aliaszen.code.gen.dto.JdbcParam;
-import com.aliaszen.code.gen.dto.JdbcInfo;
 import com.aliaszen.code.gen.service.DbService;
-import com.baomidou.mybatisplus.annotation.DbType;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -22,21 +21,21 @@ import java.util.function.Function;
 @Component
 public class DbStrategy {
 
-    private Map<String, Function<JdbcParam, JdbcInfo>> dbParamMap = new HashMap<>();
+    private Map<String, Function<JdbcParam, String>> dbParamMap = new HashMap<>();
 
     @Resource
     private DbService dbService;
 
     @PostConstruct
     public void dispatcherInit() {
-        dbParamMap.put(DbType.MYSQL.getDb(), jdbcParam -> dbService.createMySqlJdbcInfo(jdbcParam));
-        dbParamMap.put(DbType.POSTGRE_SQL.getDb(), jdbcParam -> dbService.createPostgreSqlJdbcInfo(jdbcParam));
-        dbParamMap.put(DbType.ORACLE.getDb(), jdbcParam -> dbService.createOracleJdbcInfo(jdbcParam));
-        dbParamMap.put(DbType.SQL_SERVER.getDb(), jdbcParam -> dbService.createSqlServerJdbcInfo(jdbcParam));
+        dbParamMap.put(Constants.DbType.MYSQL, jdbcParam -> dbService.createMySqlJdbcUrl(jdbcParam));
+        dbParamMap.put(Constants.DbType.POSTGRE_SQL, jdbcParam -> dbService.createPostgreSqlJdbcUrl(jdbcParam));
+        dbParamMap.put(Constants.DbType.ORACLE, jdbcParam -> dbService.createOracleJdbcUrl(jdbcParam));
+        dbParamMap.put(Constants.DbType.SQL_SERVER, jdbcParam -> dbService.createSqlServerJdbcUrl(jdbcParam));
     }
 
-    public JdbcInfo createDataSourceInfo(JdbcParam jdbcParam) {
-        Function<JdbcParam, JdbcInfo> function = dbParamMap.get(jdbcParam.getDbType());
+    public String createJdbcUrl(JdbcParam jdbcParam) {
+        Function<JdbcParam, String> function = dbParamMap.get(jdbcParam.getDbType());
         if (function != null) {
             return function.apply(jdbcParam);
         }

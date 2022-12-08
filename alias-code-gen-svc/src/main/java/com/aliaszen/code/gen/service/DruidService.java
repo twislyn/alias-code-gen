@@ -1,6 +1,6 @@
 package com.aliaszen.code.gen.service;
 
-import com.alibaba.druid.pool.DruidPooledConnection;
+import com.alibaba.druid.pool.DruidDataSource;
 
 /**
  * 数据库连接池 服务类
@@ -11,6 +11,5 @@ import com.alibaba.druid.pool.DruidPooledConnection;
  */
 public interface DruidService {
 
-    DruidPooledConnection getOrCreateConnection(String driver, String url, String userName,
-                                                String password, String dbType) throws Exception;
+    DruidDataSource initDataSource(String driver, String url, String userName, String password, String dbType) throws Exception;
 }
