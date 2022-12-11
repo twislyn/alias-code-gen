@@ -6,9 +6,8 @@ import com.aliaszen.code.gen.dto.GeneratorParam;
 import com.aliaszen.code.gen.dto.JdbcParam;
 import com.aliaszen.code.gen.dto.TableInfo;
 import com.aliaszen.code.gen.service.GenerateService;
-import com.aliaszen.code.gen.strategy.DbKeyWordsStrategy;
+import com.aliaszen.code.gen.factory.DbKeyWordsFactory;
 import com.aliaszen.code.gen.strategy.DbQueryStrategy;
-import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
@@ -32,12 +31,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -55,7 +54,7 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
     private DbQueryStrategy dbQueryStrategy;
 
     @Resource
-    private DbKeyWordsStrategy dbKeyWordsStrategy;
+    private DbKeyWordsFactory dbKeyWordsFactory;
 
     @Override
     public List<DictKeyValue> getDbType() {
@@ -66,8 +65,7 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
 
     @Override
     public List<TableInfo> getTableList(JdbcParam jdbcParam) {
-        DruidDataSource druidDataSource = createDataSource(jdbcParam);
-        DataSourceConfig.Builder builder = new DataSourceConfig.Builder(druidDataSource);
+        DataSourceConfig.Builder builder = this.createDataSourceConfig(jdbcParam);
 
         StrategyConfig.Builder strategy = new StrategyConfig.Builder();
         DbQueryDecorator decorator = new DbQueryDecorator(builder.build(), strategy.build());
@@ -114,23 +112,22 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
     }
 
     private DataSourceConfig.Builder dataSourceConfigBuilder(GeneratorParam generatorParam) {
-        DruidDataSource druidDataSource = createDataSource(JdbcParam.builder().dbType(generatorParam.getDbType())
+        DataSourceConfig.Builder builder = this.createDataSourceConfig(JdbcParam.builder()
+                .dbType(generatorParam.getDbType())
                 .host(generatorParam.getHost())
                 .dbName(generatorParam.getDbName())
                 .userName(generatorParam.getUserName())
                 .password(generatorParam.getPassword())
                 .build());
 
-        DataSourceConfig.Builder builder = new DataSourceConfig.Builder(druidDataSource);
-
-        if (Constants.DbType.containDbQuery(generatorParam.getDbType())) {
+        if (Constants.DataBaseType.containDbQuery(generatorParam.getDbType())) {
             IDbQuery dbQuery = dbQueryStrategy.createDbQuery(generatorParam.getDbType());
-            builder.dbQuery(dbQuery);
+            Optional.ofNullable(dbQuery).ifPresent(builder::dbQuery);
         }
 
-        if (Constants.DbType.containDbKeywords(generatorParam.getDbType())) {
-            IKeyWordsHandler keyWordsHandler = dbKeyWordsStrategy.createHandler(generatorParam.getDbType());
-            builder.keyWordsHandler(keyWordsHandler);
+        if (Constants.DataBaseType.containDbKeywords(generatorParam.getDbType())) {
+            IKeyWordsHandler keyWordsHandler = dbKeyWordsFactory.getKeyWordsHandler(generatorParam.getDbType());
+            Optional.ofNullable(keyWordsHandler).ifPresent(builder::keyWordsHandler);
         }
         return builder;
     }

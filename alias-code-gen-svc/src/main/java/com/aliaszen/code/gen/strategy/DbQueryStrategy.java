@@ -28,10 +28,10 @@ public class DbQueryStrategy {
 
     @PostConstruct
     public void dispatcherInit() {
-        dbQueryMap.put(Constants.DbType.MYSQL, () -> dbQueryService.createMySqlQuery());
-        dbQueryMap.put(Constants.DbType.POSTGRE_SQL, () -> dbQueryService.createPostgreSqlQuery());
-        dbQueryMap.put(Constants.DbType.ORACLE, () -> dbQueryService.createOracleQuery());
-        dbQueryMap.put(Constants.DbType.SQL_SERVER, () -> dbQueryService.createSqlServerQuery());
+        dbQueryMap.put(Constants.DataBaseType.MYSQL, () -> dbQueryService.createMySqlQuery());
+        dbQueryMap.put(Constants.DataBaseType.POSTGRE_SQL, () -> dbQueryService.createPostgreSqlQuery());
+        dbQueryMap.put(Constants.DataBaseType.ORACLE, () -> dbQueryService.createOracleQuery());
+        dbQueryMap.put(Constants.DataBaseType.SQL_SERVER, () -> dbQueryService.createSqlServerQuery());
     }
 
     public IDbQuery createDbQuery(String dbType) {

@@ -19,9 +19,9 @@ public class Result<T> implements Serializable {
     private String msg = "操作成功";
 
     /**
-     * 返回消息类型,用于复杂返回信息,0代表普通返回信息,1*代表特殊返回信息
+     * 错误码
      */
-    private Integer code = 0;
+    private String code;
 
     private T data;
 
@@ -41,11 +41,11 @@ public class Result<T> implements Serializable {
         this.msg = msg;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -61,10 +61,10 @@ public class Result<T> implements Serializable {
     public Result() {
     }
 
-    private Result(Boolean success, String msg, Integer code, T data) {
+    private Result(Boolean success, String code, String msg, T data) {
         this.success = success;
-        this.msg = msg;
         this.code = code;
+        this.msg = msg;
         this.data = data;
     }
 
@@ -77,12 +77,12 @@ public class Result<T> implements Serializable {
      * @param data
      * @return
      */
-    private static <T> Result<T> build(Boolean success, String msg, Integer code, T data) {
-        return new Result<>(success, msg, code, data);
+    private static <T> Result<T> build(Boolean success, String code, String msg, T data) {
+        return new Result<>(success, code, msg, data);
     }
 
     /**
-     * 构建返回结果，code默认值为0
+     * 构建返回结果
      *
      * @param success
      * @param msg
@@ -90,7 +90,7 @@ public class Result<T> implements Serializable {
      * @return
      */
     private static <T> Result<T> build(Boolean success, String msg, T data) {
-        return build(success, msg, 0, data);
+        return build(success, msg, null, data);
     }
 
     /**
@@ -110,8 +110,8 @@ public class Result<T> implements Serializable {
      * @param msg
      * @return
      */
-    public static <T> Result<T> failure(Integer code, String msg) {
-        return build(Boolean.FALSE, msg, code, null);
+    public static <T> Result<T> failure(String code, String msg) {
+        return build(Boolean.FALSE, code, msg, null);
     }
 
     /**
