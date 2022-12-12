@@ -2,7 +2,7 @@ package com.aliaszen.code.gen.service;
 
 import com.aliaszen.code.gen.dto.GeneratorParam;
 import com.aliaszen.code.gen.dto.JdbcParam;
-import com.aliaszen.code.gen.dto.DictKeyValue;
+import com.aliaszen.code.gen.dto.ProjectSetting;
 import com.aliaszen.code.gen.dto.TableInfo;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface GenerateService {
 
-    List<DictKeyValue> getDbType();
+    ProjectSetting init();
 
     List<TableInfo> getTableList(JdbcParam jdbcParam);
 

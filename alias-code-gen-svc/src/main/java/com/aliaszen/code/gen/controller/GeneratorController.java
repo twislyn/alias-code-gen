@@ -3,6 +3,7 @@ package com.aliaszen.code.gen.controller;
 import com.aliaszen.code.gen.dto.GeneratorParam;
 import com.aliaszen.code.gen.dto.JdbcParam;
 import com.aliaszen.code.gen.dto.DictKeyValue;
+import com.aliaszen.code.gen.dto.ProjectSetting;
 import com.aliaszen.code.gen.dto.TableInfo;
 import com.aliaszen.code.gen.service.GenerateService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,9 +31,9 @@ public class GeneratorController {
      * 获取数据库类型
      * @return 数据库类型
      */
-    @GetMapping("/generator/dbTypes")
-    public List<DictKeyValue> queryDbTypeList(){
-        return generateService.getDbType();
+    @GetMapping("/generator/init")
+    public ProjectSetting init(){
+        return generateService.init();
     }
 
     /**

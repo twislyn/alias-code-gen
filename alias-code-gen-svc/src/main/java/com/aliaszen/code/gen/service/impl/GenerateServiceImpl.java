@@ -4,6 +4,7 @@ import com.aliaszen.code.gen.constant.Constants;
 import com.aliaszen.code.gen.dto.DictKeyValue;
 import com.aliaszen.code.gen.dto.GeneratorParam;
 import com.aliaszen.code.gen.dto.JdbcParam;
+import com.aliaszen.code.gen.dto.ProjectSetting;
 import com.aliaszen.code.gen.dto.TableInfo;
 import com.aliaszen.code.gen.service.GenerateService;
 import com.aliaszen.code.gen.factory.DbKeyWordsFactory;
@@ -33,6 +34,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
@@ -57,10 +59,15 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
     private DbKeyWordsFactory dbKeyWordsFactory;
 
     @Override
-    public List<DictKeyValue> getDbType() {
-        return EnumSet.allOf(DbType.class).stream()
+    public ProjectSetting init() {
+        List<DictKeyValue> dbTypeList = EnumSet.allOf(DbType.class).stream()
                 .map(m -> DictKeyValue.builder().itemText(m.getDesc()).itemValue(m.getDb()).build())
                 .collect(Collectors.toList());
+
+        List<DictKeyValue> xmlDirList = Arrays.asList(DictKeyValue.builder()
+                                .itemValue(Constants.MapperXmlDir.RESOURCES).itemText("resources目录").build(),
+        DictKeyValue.builder().itemValue(Constants.MapperXmlDir.OTHER).itemText("其他目录").build());
+        return ProjectSetting.builder().dbTypeList(dbTypeList).xmlDirList(xmlDirList).build();
     }
 
     @Override
