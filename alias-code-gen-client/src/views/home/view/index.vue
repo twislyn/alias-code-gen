@@ -287,7 +287,7 @@ export default {
 <style>
 #components-layout-demo-basic {
   /* text-align: center; */
-
+  height: 100vh;
   overflow: scroll;
 }
 #components-layout-demo-basic .ant-layout-header {
