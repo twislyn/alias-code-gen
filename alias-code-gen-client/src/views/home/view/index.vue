@@ -40,7 +40,7 @@
                   <code-form :cfg="mapperStrategy" ref="mapperStrategyRef"/>
                 </a-collapse-panel>
               </a-collapse>
-            <code-simple-table v-show="this.current === 4"/>
+            <code-simple-table :cfg="confirmInfo" ref="confirmInfoRef" v-show="this.current === 4"/>
           </div>
           <div class="steps-action">
             <a-button v-if="current < steps.length - 1" type="primary" @click="next">
@@ -65,7 +65,7 @@ import CodeTable from "@/components/code-table/index.vue"
 import CodeSimpleTable from '@/components/code-simple-table/index.vue'
 
 import { initApi, getTablesApi, generateCodeApi } from '../api/index'
-import { formatListToOptions } from '@/utils/format'
+import { formatListToOptions, formatListToArrays } from '@/utils/format'
 
 const projectRules = {
   projectLocation: [{ required: true, message: "请输入项目路径", trigger: "blur" }],
@@ -250,15 +250,24 @@ export default {
       if (this.current === 3) {
         const tableNames = this.$refs.tableNamesRef.getFormModel();
         Object.assign(this.formModel, tableNames)
-        
-        const packages = this.$refs.packagesRef.getFormModel();
-        Object.assign(this.formModel, packages)
-        
-        const fileNames = this.$refs.fileNamesRef.getFormModel();
-        Object.assign(this.formModel, fileNames)
-        
-        const superClasses = this.$refs.superClassesRef.getFormModel();
-        Object.assign(this.formModel, superClasses)
+
+        const packagesRef = this.$refs.packagesRef
+        if (packagesRef) {
+          const packages = packagesRef.getFormModel();
+          Object.assign(this.formModel, packages)
+        }
+
+        const fileNamesRef = this.$refs.fileNamesRef
+        if (fileNamesRef) {
+          const fileNames = fileNamesRef.getFormModel();
+          Object.assign(this.formModel, fileNames)
+        }
+
+        const superClassesRef = this.$refs.superClassesRef
+        if (superClassesRef) {
+          const superClasses = superClassesRef.getFormModel();
+          Object.assign(this.formModel, superClasses)
+        }
       }
       if (this.current === 4) {
         const globalStrateg = this.$refs.globalStrategyRef.getFormModel();
@@ -272,6 +281,10 @@ export default {
         
         const mapperStrategy = this.$refs.mapperStrategyRef.getFormModel();
         Object.assign(this.formModel, mapperStrategy)
+
+        let selectedTableObjList= {... this.formModel.generateTableList}
+        const selectedTables = formatListToArrays(selectedTableObjList)
+        this.$refs.confirmInfoRef.setTables(selectedTables)
       }
     },
     prev() {

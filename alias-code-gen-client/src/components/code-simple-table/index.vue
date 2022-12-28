@@ -1,23 +1,36 @@
 <template>
-  <a-table :columns="columns" :data-source="data" bordered>
+  <a-table :columns="columns" :data-source="data" :pagination="false" bordered>
     <template slot="title" >
         <!-- <code-form :cfg="tableNames"/> -->
         选中的数据表
     </template>
   </a-table>
 </template>
+
 <script>
+const columns = [
+  {
+    title: "数据表",
+    dataIndex: "tableName",
+    key: "tableName",
+  },
+  {
+    title: "实体描述",
+    dataIndex: "tableComment",
+    key: "tableComment",
+  },
+]
 
 const formItemLayout = {
   layout: "horizontal",
   labelCol: { span: 8 },
   wrapperCol: { span: 8 },
-};
+}
 
 export default {
   name: "CodeSimpleTable",
   props:{
-        cfg: {
+    cfg: {
       type: Object,
       default() {
         return {};
@@ -27,7 +40,7 @@ export default {
   data() {
     return {
       data: this.cfg.data,
-      columns: this.cfg.columns,
+      columns: columns,
       tableNames: {
         layout: formItemLayout,
         itemList: [],
@@ -45,15 +58,12 @@ export default {
       ];
     },
 
-    setTables(data){
-        this.data=data
+    setTables(data) {
+      this.data = data
     }
   }
 };
 </script>
 <style>
-th.column-money,
-td.column-money {
-  text-align: right !important;
-}
+
 </style>
