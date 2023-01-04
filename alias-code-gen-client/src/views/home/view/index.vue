@@ -40,7 +40,10 @@
                   <code-form :cfg="mapperStrategy" ref="mapperStrategyRef"/>
                 </a-collapse-panel>
               </a-collapse>
-            <code-simple-table :cfg="confirmInfo" ref="confirmInfoRef" v-show="this.current === 4"/>
+              <div v-show="this.current === 4">
+                <code-description ref="confirmDescriptionRef"/>
+                <code-simple-table ref="confirmInfoRef"/>
+              </div>
           </div>
           <div class="steps-action">
             <a-button v-if="current < steps.length - 1" type="primary" @click="next">
@@ -60,8 +63,9 @@
 </template>
 
 <script>
-import CodeForm from "@/components/code-form/index.vue"
-import CodeTable from "@/components/code-table/index.vue"
+import CodeForm from '@/components/code-form/index.vue'
+import CodeTable from '@/components/code-table/index.vue'
+import CodeDescription from '@/components/code-description/index.vue'
 import CodeSimpleTable from '@/components/code-simple-table/index.vue'
 
 import { initApi, getTablesApi, generateCodeApi } from '../api/index'
@@ -96,6 +100,7 @@ export default {
     CodeForm,
     CodeTable,
     CodeSimpleTable,
+    CodeDescription,
   },
   data() {
     return {
@@ -281,6 +286,19 @@ export default {
         
         const mapperStrategy = this.$refs.mapperStrategyRef.getFormModel();
         Object.assign(this.formModel, mapperStrategy)
+
+        const confirmDescription = {
+          bordered: true,
+          layout: 'vertical',
+          itemList: [{
+              label: '项目路径',
+              value:  this.formModel.projectLocation
+          },{
+              label: '代码包路径',
+              value: this.formModel.packageName
+          }],
+        }
+        this.$refs.confirmDescriptionRef.setItem(confirmDescription)
 
         let selectedTableObjList= {... this.formModel.generateTableList}
         const selectedTables = formatListToArrays(selectedTableObjList)

@@ -76,7 +76,6 @@ export default {
     },
     // 绑定方法
     bindEvents() {
-        // console.error(this.cfg)
       return this.cfg.events || {};
     },
   },

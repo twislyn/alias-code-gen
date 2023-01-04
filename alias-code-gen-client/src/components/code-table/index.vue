@@ -72,22 +72,62 @@
         {{ text }}
       </template>
     </template>
+    <template slot="tableComment" slot-scope="text, record">
+      <editable-cell :text="text" @change="onCellChange(record.id, 'tableComment', $event)" />
+    </template>
   </a-table>
 </template>
 
 <script>
+const EditableCell = {
+  template: `
+    <div class="editable-cell">
+      <div v-if="editable" class="editable-cell-input-wrapper">
+        <a-input :value="value" @change="handleChange" @pressEnter="check" /><a-icon
+          type="check"
+          class="editable-cell-icon-check"
+          @click="check"
+        />
+      </div>
+      <div v-else class="editable-cell-text-wrapper">
+        {{ value || ' ' }}
+        <a-icon type="edit" class="editable-cell-icon" @click="edit" />
+      </div>
+    </div>
+  `,
+  props: {
+    text: String,
+  },
+  data() {
+    return {
+      value: this.text,
+      editable: false,
+    };
+  },
+  methods: {
+    handleChange(e) {
+      this.value = e.target.value;
+    },
+    check() {
+      this.editable = false;
+      this.$emit('change', this.value);
+    },
+    edit() {
+      this.editable = true;
+    },
+  },
+};
+
 const columns = [
   {
     title: "数据表",
     dataIndex: "tableName",
-    key: "tableName",
     scopedSlots: {
       filterDropdown: "filterDropdown",
       filterIcon: "filterIcon",
       customRender: "customRender",
     },
-    onFilter: (value, record) =>
-      record.tableName.toString().toLowerCase().includes(value.toLowerCase()),
+    onFilter: (value, record) => record.tableName.toString().toLowerCase().includes(value.toLowerCase()),
     onFilterDropdownVisibleChange: (visible) => {
       if (visible) {
         setTimeout(() => {
@@ -99,12 +139,15 @@ const columns = [
   {
     title: "实体描述",
     dataIndex: "tableComment",
-    key: "tableComment",
+    scopedSlots: { customRender: 'tableComment' },
   },
 ];
 
 export default {
   name: "CodeTable",
+  components: {
+    EditableCell,
+  },
   data() {
     return {
       searchText: "",
@@ -134,6 +177,58 @@ export default {
       this.selectedRowKeys = selectedRowKeys;
       this.selectedRows = selectedRows;
     },
+    onCellChange(key, dataIndex, value) {
+      const dataSource = [... this.data];
+      const target = dataSource.find(item => item.id === key);
+      if (target) {
+        target[dataIndex] = value;
+        this.data = dataSource;
+      }
+    },
   },
 };
 </script>
+<style>
+.editable-cell {
+  position: relative;
+}
+
+.editable-cell-input-wrapper,
+.editable-cell-text-wrapper {
+  padding-right: 24px;
+}
+
+.editable-cell-text-wrapper {
+  padding: 5px 24px 5px 5px;
+}
+
+.editable-cell-icon,
+.editable-cell-icon-check {
+  position: absolute;
+  right: 0;
+  width: 20px;
+  cursor: pointer;
+}
+
+.editable-cell-icon {
+  line-height: 18px;
+  display: none;
+}
+
+.editable-cell-icon-check {
+  line-height: 28px;
+}
+
+.editable-cell:hover .editable-cell-icon {
+  display: inline-block;
+}
+
+.editable-cell-icon:hover,
+.editable-cell-icon-check:hover {
+  color: #108ee9;
+}
+
+.editable-add-btn {
+  margin-bottom: 8px;
+}
+</style>

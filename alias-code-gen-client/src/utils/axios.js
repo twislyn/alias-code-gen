@@ -12,7 +12,7 @@ class HttpRequest {
   getConfig() {
     const config = {
       baseUrl: baseURL,
-      timeout: 60 * 1000 * 3,
+      timeout: 60 * 1000,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json; charset=utf-8",
@@ -70,7 +70,6 @@ class HttpRequest {
         }
       },
       (error) => {
-        console.error(error);
         this.destroy(url);
         // this.closeLoading();
 
@@ -81,11 +80,8 @@ class HttpRequest {
 
         // const message500 = error.response.data.errorCode ? `错误号：${error.response.data.errorCode}
         //   错误信息：${error.response.data.errorMessage}` : '服务器内部错误，请联系技术支持';
-        // console.log(error)
         const { status } = error.response.status;
-        console.log(status);
         // const message = error.response.message;
-        console.log(error.response);
         switch (status) {
           case 401:
             sessionStorage.clear();

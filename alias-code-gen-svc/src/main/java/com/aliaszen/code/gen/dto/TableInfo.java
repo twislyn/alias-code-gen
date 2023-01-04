@@ -20,6 +20,8 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class TableInfo {
 
+    private String id;
+
     private String tableName;
 
     private String tableComment;

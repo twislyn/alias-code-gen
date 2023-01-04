@@ -53,7 +53,6 @@ export default {
       formItemLayout: this.cfg.layout,
       itemList: this.cfg.itemList,
       rules: this.formRules,
-      // span:this.cfg.span
     };
   },
   computed: {
@@ -74,13 +73,7 @@ export default {
     ComponentBus.$on("sfCodeNameInput", (prop, value) => {
       if (prop) {
         const ref = this.$refs[prop + "Ref"];
-        console.error("CodeForm-prop");
-        console.error(prop);
         if (ref) {
-          console.error("CodeForm-ref");
-          console.error(ref);
-          console.error("CodeForm-value");
-          console.error(value);
           this.formModel[prop] = value;
         }
       }

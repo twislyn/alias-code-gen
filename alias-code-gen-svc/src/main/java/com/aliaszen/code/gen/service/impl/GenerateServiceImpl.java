@@ -10,6 +10,7 @@ import com.aliaszen.code.gen.service.GenerateService;
 import com.aliaszen.code.gen.factory.DbKeyWordsFactory;
 import com.aliaszen.code.gen.strategy.DbQueryStrategy;
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
@@ -84,7 +85,7 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
             decorator.execute(tablesSql, rs -> {
                 String tableName = rs.getStringResult(name);
                 String tableComment = rs.getTableComment();
-                tableInfos.add(TableInfo.builder().tableName(tableName).tableComment(tableComment).build());
+                tableInfos.add(TableInfo.builder().id(IdWorker.getIdStr()).tableName(tableName).tableComment(tableComment).build());
             });
         } catch (SQLException e) {
             e.printStackTrace();
