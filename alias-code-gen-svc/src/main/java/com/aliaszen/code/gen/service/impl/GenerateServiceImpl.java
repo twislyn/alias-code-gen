@@ -137,6 +137,10 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
             IKeyWordsHandler keyWordsHandler = dbKeyWordsFactory.getKeyWordsHandler(generatorParam.getDbType());
             Optional.ofNullable(keyWordsHandler).ifPresent(builder::keyWordsHandler);
         }
+
+        if (StringUtils.hasText(generatorParam.getSchema())) {
+            builder.schema(generatorParam.getSchema());
+        }
         return builder;
     }
 

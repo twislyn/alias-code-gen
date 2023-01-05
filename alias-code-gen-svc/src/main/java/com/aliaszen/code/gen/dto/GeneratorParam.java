@@ -50,6 +50,10 @@ public class GeneratorParam {
      */
     private String password;
     /**
+     * 数据库schema(部分数据库适用)
+     */
+    private String schema;
+    /**
      * 数据库名
      */
     private String dbName;
