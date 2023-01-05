@@ -164,7 +164,7 @@ export default {
         { type: "input", label: "包名", prop: "packageName",  help: "业务模块包路径，例如：com.aliaszen.**.**.base", },
         { type: "select", label: "数据库类型", prop: "dbType", },
         { type: "input", label: "地址", prop: "host", help: "数据库地址格式：ip:port", },
-        { type: "input", label: "数据库schema", prop: "schema", help: "部分数据库适用", },
+        { type: "input", label: "schema", prop: "schema", help: "数据库schema, 部分数据库适用", },
         { type: "input", label: "数据库", prop: "dbName", help: "数据库的名称", },
         { type: "input", label: "用户名", prop: "userName", help: "数据库的用户名", },
         { type: "input", label: "密码", prop: "password", help: "数据库的密码", },

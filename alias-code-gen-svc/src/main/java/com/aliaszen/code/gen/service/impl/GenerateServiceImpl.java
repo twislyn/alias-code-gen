@@ -6,10 +6,11 @@ import com.aliaszen.code.gen.dto.GeneratorParam;
 import com.aliaszen.code.gen.dto.JdbcParam;
 import com.aliaszen.code.gen.dto.ProjectSetting;
 import com.aliaszen.code.gen.dto.TableInfo;
+import com.aliaszen.code.gen.enums.DbTypeEnum;
+import com.aliaszen.code.gen.enums.GenericEnum;
+import com.aliaszen.code.gen.enums.MapperXmlPathEnum;
 import com.aliaszen.code.gen.service.GenerateService;
 import com.aliaszen.code.gen.factory.DbKeyWordsFactory;
-import com.aliaszen.code.gen.strategy.DbQueryStrategy;
-import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
@@ -54,21 +55,14 @@ import java.util.stream.Collectors;
 public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements GenerateService {
 
     @Resource
-    private DbQueryStrategy dbQueryStrategy;
-
-    @Resource
     private DbKeyWordsFactory dbKeyWordsFactory;
 
     @Override
     public ProjectSetting init() {
-        List<DictKeyValue> dbTypeList = EnumSet.allOf(DbType.class).stream()
-                .map(m -> DictKeyValue.builder().itemText(m.getDesc()).itemValue(m.getDb()).build())
-                .collect(Collectors.toList());
+        List<DictKeyValue> dictKeyValues = GenericEnum.toDictKeyValue(DbTypeEnum.values());
+        List<DictKeyValue> xmlDirList = GenericEnum.toDictKeyValue(MapperXmlPathEnum.values());
 
-        List<DictKeyValue> xmlDirList = Arrays.asList(DictKeyValue.builder()
-                                .itemValue(Constants.MapperXmlDir.RESOURCES).itemText("resources目录").build(),
-        DictKeyValue.builder().itemValue(Constants.MapperXmlDir.OTHER).itemText("其他目录").build());
-        return ProjectSetting.builder().dbTypeList(dbTypeList).xmlDirList(xmlDirList).build();
+        return ProjectSetting.builder().dbTypeList(dictKeyValues).xmlDirList(xmlDirList).build();
     }
 
     @Override
@@ -128,10 +122,8 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
                 .password(generatorParam.getPassword())
                 .build());
 
-        if (Constants.DataBaseType.containDbQuery(generatorParam.getDbType())) {
-            IDbQuery dbQuery = dbQueryStrategy.createDbQuery(generatorParam.getDbType());
-            Optional.ofNullable(dbQuery).ifPresent(builder::dbQuery);
-        }
+        IDbQuery dbQuery = builder.build().getDbQuery();
+        builder.dbQuery(dbQuery);
 
         if (Constants.DataBaseType.containDbKeywords(generatorParam.getDbType())) {
             IKeyWordsHandler keyWordsHandler = dbKeyWordsFactory.getKeyWordsHandler(generatorParam.getDbType());
