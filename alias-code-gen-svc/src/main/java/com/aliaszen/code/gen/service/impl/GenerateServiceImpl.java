@@ -11,6 +11,7 @@ import com.aliaszen.code.gen.enums.GenericEnum;
 import com.aliaszen.code.gen.enums.MapperXmlPathEnum;
 import com.aliaszen.code.gen.service.GenerateService;
 import com.aliaszen.code.gen.factory.DbKeyWordsFactory;
+import com.aliaszen.code.gen.support.AbstractAssert;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
@@ -36,9 +37,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -70,19 +69,21 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
         DataSourceConfig.Builder builder = this.createDataSourceConfig(jdbcParam);
 
         StrategyConfig.Builder strategy = new StrategyConfig.Builder();
-        DbQueryDecorator decorator = new DbQueryDecorator(builder.build(), strategy.build());
-        String tablesSql = decorator.tablesSql();
-        String name = decorator.tableName();
+        DbQueryDecorator dbQuery = new DbQueryDecorator(builder.build(), strategy.build());
+        String tablesSql = dbQuery.tablesSql();
+        String name = dbQuery.tableName();
 
         List<TableInfo> tableInfos = new ArrayList<>();
         try {
-            decorator.execute(tablesSql, rs -> {
+            dbQuery.execute(tablesSql, rs -> {
                 String tableName = rs.getStringResult(name);
                 String tableComment = rs.getTableComment();
                 tableInfos.add(TableInfo.builder().id(IdWorker.getIdStr()).tableName(tableName).tableComment(tableComment).build());
             });
         } catch (SQLException e) {
-            e.printStackTrace();
+            AbstractAssert.throwException(String.valueOf(e.getErrorCode()), e.getMessage());
+        } finally {
+            dbQuery.closeConnection();
         }
 
         return tableInfos;
