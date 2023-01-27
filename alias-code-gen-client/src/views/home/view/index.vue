@@ -10,7 +10,7 @@
             <a-step v-for="item in steps" :key="item.title" :title="item.title"/>
           </a-steps>
           <div class="steps-content">
-              <code-form v-show="this.current === 0" :cfg="projects" :formRules="projects.rules" ref="projectsRef"/>
+              <code-form v-show="this.current === 3" :cfg="projects" :formRules="projects.rules" ref="projectsRef"/>
               <code-table ref="tablesRef" v-show="this.current === 1"/>
               <a-tabs v-show="this.current === 2">
                 <a-tab-pane key="1" tab="数据表">
@@ -26,7 +26,7 @@
                   <code-form :cfg="superClasses" ref="superClassesRef"/>
                 </a-tab-pane>
               </a-tabs>
-              <a-collapse v-model="activeKey" v-show="this.current === 3">
+              <a-collapse v-model="activeKey" v-show="this.current === 0">
                 <a-collapse-panel key="1" header="全局策略" :showArrow="false" disabled>
                   <code-form :cfg="globalStrategy" ref="globalStrategyRef"/>
                 </a-collapse-panel>
@@ -206,26 +206,26 @@ export default {
       ];
 
       this.globalStrategy.itemList = [
-        { type: "switch", label: "Kotlin项目", prop: "kotlinProject" },
-        { type: "switch", label: "开启swagger注解", prop: "useSwagger" },
+        { type: "switch", label: "Kotlin项目", prop: "kotlinProject", },
+        { type: "switch", label: "Swagger文档", prop: "useSwagger" },
       ]
 
       this.entityStrategy.itemList = [
-        { type: "switch", label: "生成表注解", prop: "useTableAnnotation" },
-        { type: "switch", label: "生成字段注解", prop: "useTableFieldAnnotation", },
+        { type: "switch", label: "表注解", prop: "useTableAnnotation" },
+        { type: "switch", label: "字段注解", prop: "useTableFieldAnnotation", },
         { type: "switch", label: "禁用序列化", prop: "disableSerialization" },
-        { type: "switch", label: "开启Lombok注解", prop: "useLombok" },
+        { type: "switch", label: "lombok注解", prop: "useLombok" },
       ]
 
       this.ctrlStrategy.itemList = [
         { type: "switch", label: "URL使用驼峰转连字符", prop: "useHyphen" },
-        { type: "switch", label: "开启Rest风格", prop: "useRestStyle" },
+        { type: "switch", label: "Rest风格", prop: "useRestStyle" },
       ]
 
       this.mapperStrategy.itemList = [
-        { type: "switch", label: "生成BaseResultMap", prop: "generateBaseResultMap", },
-        { type: "switch", label: "生成BaseColumnList", prop: "generateBaseColumnList", },
-        { type: "switch", label: "开启Mapper注解", prop: "useMapperAnnotation", },
+        { type: "switch", label: "BaseResultMap", prop: "generateBaseResultMap", },
+        { type: "switch", label: "BaseColumnList", prop: "generateBaseColumnList", },
+        { type: "switch", label: "Mapper注解", prop: "useMapperAnnotation", },
       ]
 
       const data = await initApi()
