@@ -207,25 +207,25 @@ export default {
 
       this.globalStrategy.itemList = [
         { type: "switch", label: "Kotlin项目", prop: "kotlinProject" },
-        { type: "switch", label: "开启swagger注解", prop: "useSwagger" },
+        { type: "switch", label: "Swagger文档", prop: "useSwagger" },
       ]
 
       this.entityStrategy.itemList = [
-        { type: "switch", label: "生成表注解", prop: "useTableAnnotation" },
-        { type: "switch", label: "生成字段注解", prop: "useTableFieldAnnotation", },
+        { type: "switch", label: "表注解", prop: "useTableAnnotation" },
+        { type: "switch", label: "字段注解", prop: "useTableFieldAnnotation", },
         { type: "switch", label: "禁用序列化", prop: "disableSerialization" },
-        { type: "switch", label: "开启Lombok注解", prop: "useLombok" },
+        { type: "switch", label: "lombok注解", prop: "useLombok" },
       ]
 
       this.ctrlStrategy.itemList = [
         { type: "switch", label: "URL使用驼峰转连字符", prop: "useHyphen" },
-        { type: "switch", label: "开启Rest风格", prop: "useRestStyle" },
+        { type: "switch", label: "Rest风格", prop: "useRestStyle" },
       ]
 
       this.mapperStrategy.itemList = [
-        { type: "switch", label: "生成BaseResultMap", prop: "generateBaseResultMap", },
-        { type: "switch", label: "生成BaseColumnList", prop: "generateBaseColumnList", },
-        { type: "switch", label: "开启Mapper注解", prop: "useMapperAnnotation", },
+        { type: "switch", label: "BaseResultMap", prop: "generateBaseResultMap", },
+        { type: "switch", label: "BaseColumnList", prop: "generateBaseColumnList", },
+        { type: "switch", label: "Mapper注解", prop: "useMapperAnnotation", },
       ]
 
       const data = await initApi()
