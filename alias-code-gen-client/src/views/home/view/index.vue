@@ -10,7 +10,7 @@
             <a-step v-for="item in steps" :key="item.title" :title="item.title"/>
           </a-steps>
           <div class="steps-content">
-              <code-form v-show="this.current === 3" :cfg="projects" :formRules="projects.rules" ref="projectsRef"/>
+              <code-form v-show="this.current === 0" :cfg="projects" :formRules="projects.rules" ref="projectsRef"/>
               <code-table ref="tablesRef" v-show="this.current === 1"/>
               <a-tabs v-show="this.current === 2">
                 <a-tab-pane key="1" tab="数据表">
@@ -26,7 +26,7 @@
                   <code-form :cfg="superClasses" ref="superClassesRef"/>
                 </a-tab-pane>
               </a-tabs>
-              <a-collapse v-model="activeKey" v-show="this.current === 0">
+              <a-collapse v-model="activeKey" v-show="this.current === 3">
                 <a-collapse-panel key="1" header="全局策略" :showArrow="false" disabled>
                   <code-form :cfg="globalStrategy" ref="globalStrategyRef"/>
                 </a-collapse-panel>
@@ -206,7 +206,7 @@ export default {
       ];
 
       this.globalStrategy.itemList = [
-        { type: "switch", label: "Kotlin项目", prop: "kotlinProject", },
+        { type: "switch", label: "Kotlin项目", prop: "kotlinProject" },
         { type: "switch", label: "Swagger文档", prop: "useSwagger" },
       ]
 
