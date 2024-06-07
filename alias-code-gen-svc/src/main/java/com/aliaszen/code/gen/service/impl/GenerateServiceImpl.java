@@ -7,11 +7,10 @@ import com.aliaszen.code.gen.dto.JdbcParam;
 import com.aliaszen.code.gen.dto.ProjectSetting;
 import com.aliaszen.code.gen.dto.TableInfo;
 import com.aliaszen.code.gen.enums.DbTypeEnum;
-import com.aliaszen.code.gen.enums.GenericEnum;
 import com.aliaszen.code.gen.enums.MapperXmlPathEnum;
-import com.aliaszen.code.gen.service.GenerateService;
 import com.aliaszen.code.gen.factory.DbKeyWordsFactory;
-import com.aliaszen.code.gen.support.AbstractAssert;
+import com.aliaszen.code.gen.service.GenerateService;
+import com.aliaszen.code.gen.support.ServiceAssert;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
@@ -30,6 +29,7 @@ import com.baomidou.mybatisplus.generator.config.querys.DbQueryDecorator;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.yizlan.gelato.core.enums.BiEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -58,8 +58,11 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
 
     @Override
     public ProjectSetting init() {
-        List<DictKeyValue> dictKeyValues = GenericEnum.toDictKeyValue(DbTypeEnum.values());
-        List<DictKeyValue> xmlDirList = GenericEnum.toDictKeyValue(MapperXmlPathEnum.values());
+        @SuppressWarnings("unchecked")
+        List<DictKeyValue> dictKeyValues = (List<DictKeyValue>) BiEnum.toList(DbTypeEnum.values(),DictKeyValue::new);
+
+        @SuppressWarnings("unchecked")
+        List<DictKeyValue> xmlDirList = (List<DictKeyValue>) BiEnum.toList(MapperXmlPathEnum.values(), DictKeyValue::new);
 
         return ProjectSetting.builder().dbTypeList(dictKeyValues).xmlDirList(xmlDirList).build();
     }
@@ -81,7 +84,7 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
                 tableInfos.add(TableInfo.builder().id(IdWorker.getIdStr()).tableName(tableName).tableComment(tableComment).build());
             });
         } catch (SQLException e) {
-            AbstractAssert.throwException(String.valueOf(e.getErrorCode()), e.getMessage());
+            ServiceAssert.throwException(String.valueOf(e.getErrorCode()), e.getMessage());
         } finally {
             dbQuery.closeConnection();
         }

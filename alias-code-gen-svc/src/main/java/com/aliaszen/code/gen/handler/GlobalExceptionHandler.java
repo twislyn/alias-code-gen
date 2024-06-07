@@ -1,8 +1,8 @@
 package com.aliaszen.code.gen.handler;
 
 import com.aliaszen.code.gen.dto.Result;
-import com.aliaszen.code.gen.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;
+import com.yizlan.gelato.core.panic.I18nException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -25,15 +25,16 @@ public class GlobalExceptionHandler {
     @Resource
     private MessageSource messageSource;
 
-    @ExceptionHandler(ServiceException.class)
-    public Result handleServiceException(ServiceException e) {
+    @ExceptionHandler(I18nException.class)
+    public Result handleServiceException(I18nException e) {
+        String code = (String) e.getCode();
         Object[] args = e.getArgs();
-        String defaultMessage = ArrayUtils.isEmpty(args) ? e.getCode() : String.valueOf(args[0]);
-        String message = messageSource.getMessage(e.getCode(), e.getArgs(), defaultMessage, LocaleContextHolder.getLocale());
+        String defaultMessage = ArrayUtils.isEmpty(args) ? code : String.valueOf(args[0]);
+        String message = messageSource.getMessage(code, e.getArgs(), defaultMessage, LocaleContextHolder.getLocale());
 
-        log.error("occurred service exception：" + message, e);
+        log.error("occurred i18n exception：{}, e: {}" , message, e.getMessage());
 
-        return wrap(e.getCode(), message);
+        return wrap(code, message);
     }
 
     private Result wrap(String code, String message) {

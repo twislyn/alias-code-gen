@@ -1,10 +1,10 @@
 package com.aliaszen.code.gen.service.impl;
 
-import com.aliaszen.code.gen.i18n.I18nConstants;
 import com.aliaszen.code.gen.dto.JdbcParam;
 import com.aliaszen.code.gen.enums.JdbcRegularUrl;
+import com.aliaszen.code.gen.i18n.I18nConstants;
 import com.aliaszen.code.gen.service.DruidService;
-import com.aliaszen.code.gen.support.AbstractAssert;
+import com.aliaszen.code.gen.support.ServiceAssert;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.util.JdbcUtils;
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -29,7 +29,7 @@ public class AbstractGenerateServiceImpl {
         try {
             return new DataSourceConfig.Builder(createDataSource(jdbcParam));
         } catch (Exception e) {
-            AbstractAssert.isTrue(false, I18nConstants.DataSource.DS0001);
+            ServiceAssert.isTrue(false, I18nConstants.DataSource.DS0001);
         }
         return null;
     }
@@ -42,7 +42,7 @@ public class AbstractGenerateServiceImpl {
             return druidService.initDataSource(driverClassName, jdbcUrl, jdbcParam.getUserName(),
                     jdbcParam.getPassword(), jdbcParam.getDbType());
         } catch (Exception e) {
-            AbstractAssert.isTrue(false, I18nConstants.DataSource.DS0001);
+            ServiceAssert.isTrue(false, I18nConstants.DataSource.DS0001);
         }
         return null;
     }
@@ -79,7 +79,7 @@ public class AbstractGenerateServiceImpl {
                 break;
         }
 
-        AbstractAssert.isTrue(StringUtils.hasText(url), I18nConstants.Jdbc.JU0001);
+        ServiceAssert.isTrue(StringUtils.hasText(url), I18nConstants.Jdbc.JU0001);
         return url;
     }
 }

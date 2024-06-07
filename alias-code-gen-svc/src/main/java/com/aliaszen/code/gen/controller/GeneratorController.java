@@ -2,7 +2,6 @@ package com.aliaszen.code.gen.controller;
 
 import com.aliaszen.code.gen.dto.GeneratorParam;
 import com.aliaszen.code.gen.dto.JdbcParam;
-import com.aliaszen.code.gen.dto.DictKeyValue;
 import com.aliaszen.code.gen.dto.ProjectSetting;
 import com.aliaszen.code.gen.dto.TableInfo;
 import com.aliaszen.code.gen.service.GenerateService;

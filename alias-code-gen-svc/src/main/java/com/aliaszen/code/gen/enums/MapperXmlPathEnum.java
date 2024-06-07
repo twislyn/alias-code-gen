@@ -1,6 +1,7 @@
 package com.aliaszen.code.gen.enums;
 
 import com.aliaszen.code.gen.constant.Constants;
+import com.yizlan.gelato.core.enums.BinaryEnum;
 
 /**
  * mapper xml enum
@@ -9,7 +10,7 @@ import com.aliaszen.code.gen.constant.Constants;
  * @version 1.0
  * @since 2023-01-05
  */
-public enum MapperXmlPathEnum implements GenericEnum<String, String> {
+public enum MapperXmlPathEnum implements BinaryEnum<String> {
     RESOURCES(Constants.MapperXmlDir.RESOURCES, "resources目录"),
     OTHER(Constants.MapperXmlDir.OTHER, "其他目录");
 
@@ -22,7 +23,7 @@ public enum MapperXmlPathEnum implements GenericEnum<String, String> {
         this.text = text;
     }
 
-    @Override
+    @Deprecated
     public String getText() {
         return text;
     }
@@ -30,5 +31,10 @@ public enum MapperXmlPathEnum implements GenericEnum<String, String> {
     @Override
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public String getLabel() {
+        return text;
     }
 }

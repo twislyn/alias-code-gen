@@ -1,6 +1,7 @@
 package com.aliaszen.code.gen.enums;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.yizlan.gelato.core.enums.BinaryEnum;
 
 /**
  * db type enum
@@ -9,7 +10,7 @@ import com.baomidou.mybatisplus.annotation.DbType;
  * @version 1.0
  * @since 2023-01-05
  */
-public enum DbTypeEnum implements GenericEnum<String, String> {
+public enum DbTypeEnum implements BinaryEnum<String> {
     /**
      * MYSQL
      */
@@ -88,7 +89,7 @@ public enum DbTypeEnum implements GenericEnum<String, String> {
         this.text = text;
     }
 
-    @Override
+    @Deprecated
     public String getText() {
         return text;
     }
@@ -96,5 +97,10 @@ public enum DbTypeEnum implements GenericEnum<String, String> {
     @Override
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public String getLabel() {
+        return text;
     }
 }
