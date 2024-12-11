@@ -29,7 +29,7 @@
         <postgresql.version>42.3.8</postgresql.version>
         <oracle.version>11.2.0.4</oracle.version>
         <sqlserver.version>8.2.2.jre8</sqlserver.version>
-        <mybatisplus.version>3.5.6</mybatisplus.version>
+        <mybatisplus.version>3.5.4.1</mybatisplus.version>
         <cglib.version>3.3.0</cglib.version>
         <druid.version>1.2.15</druid.version>
         <snakeyaml.version>1.33</snakeyaml.version>
