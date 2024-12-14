@@ -4,7 +4,7 @@ import com.yizlan.code.gen.dto.JdbcParam;
 import com.yizlan.code.gen.enums.JdbcRegularUrl;
 import com.yizlan.code.gen.i18n.I18nConstants;
 import com.yizlan.code.gen.service.DruidService;
-import com.yizlan.code.gen.support.ServiceAssert;
+import com.yizlan.code.gen.common.support.ServiceAssert;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.util.JdbcUtils;
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -29,7 +29,7 @@ public class AbstractGenerateServiceImpl {
         try {
             return new DataSourceConfig.Builder(createDataSource(jdbcParam));
         } catch (Exception e) {
-            ServiceAssert.isTrue(false, I18nConstants.DataSource.DS0001);
+            ServiceAssert.throwException(I18nConstants.DataSource.DS0001);
         }
         return null;
     }
@@ -42,7 +42,7 @@ public class AbstractGenerateServiceImpl {
             return druidService.initDataSource(driverClassName, jdbcUrl, jdbcParam.getUserName(),
                     jdbcParam.getPassword(), jdbcParam.getDbType());
         } catch (Exception e) {
-            ServiceAssert.isTrue(false, I18nConstants.DataSource.DS0001);
+            ServiceAssert.throwException(I18nConstants.DataSource.DS0001);
         }
         return null;
     }

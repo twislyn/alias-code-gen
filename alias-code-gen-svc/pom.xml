@@ -14,8 +14,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.yizlan</groupId>
+            <artifactId>alias-code-gen-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yizlan</groupId>
+            <artifactId>alias-code-gen-web</artifactId>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -68,20 +72,12 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
         </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.yizlan</groupId>
-            <artifactId>gelato-core</artifactId>
         </dependency>
     </dependencies>
 

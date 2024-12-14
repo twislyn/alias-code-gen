@@ -1,8 +1,8 @@
 package com.yizlan.code.gen.handler;
 
 import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;
-import com.yizlan.code.gen.dto.Result;
-import com.yizlan.gelato.core.panic.I18nException;
+import com.yizlan.code.gen.common.exception.ServiceException;
+import com.yizlan.code.gen.common.protocol.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -25,14 +25,14 @@ public class GlobalExceptionHandler {
     @Resource
     private MessageSource messageSource;
 
-    @ExceptionHandler(I18nException.class)
-    public Result<Object> handleServiceException(I18nException e) {
+    @ExceptionHandler(ServiceException.class)
+    public Result<Object> handleServiceException(ServiceException e) {
         String code = e.getCode();
         Object[] args = e.getArgs();
         String defaultMessage = ArrayUtils.isEmpty(args) ? code : String.valueOf(args[0]);
         String message = messageSource.getMessage(code, e.getArgs(), defaultMessage, LocaleContextHolder.getLocale());
 
-        log.error("occurred i18n exception：{}, e: {}" , message, e.getMessage());
+        log.error("occurred i18n exception：{}, e: {}", message, e.getMessage());
 
         return wrap(code, message);
     }

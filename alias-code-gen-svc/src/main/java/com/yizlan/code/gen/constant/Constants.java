@@ -145,11 +145,11 @@ public interface Constants {
          */
         String XCloud = DbType.XCloud.getDb();
 
-        static Boolean allowGenerate(String dbType) {
+        static boolean allowGenerate(String dbType) {
             return MYSQL.equals(dbType) || POSTGRE_SQL.equals(dbType) || ORACLE.equals(dbType) || SQL_SERVER.equals(dbType);
         }
 
-        static Boolean containDbQuery(String dbType) {
+        static boolean containDbQuery(String dbType) {
             return MYSQL.equals(dbType) || MARIADB.equals(dbType) || ORACLE.equals(dbType)
 
                     || DB2.equals(dbType) || H2.equals(dbType) || SQLITE.equals(dbType)
@@ -163,7 +163,7 @@ public interface Constants {
                     || SYBASE.equals(dbType) || FIREBIRD.equals(dbType);
         }
 
-        static Boolean containDbKeywords(String dbType) {
+        static boolean containDbKeywords(String dbType) {
             return MYSQL.equals(dbType) || H2.equals(dbType) || POSTGRE_SQL.equals(dbType);
         }
     }

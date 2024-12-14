@@ -10,6 +10,9 @@
     <version>${revision}</version>
     <modules>
         <module>alias-code-gen-client</module>
+        <module>alias-code-gen-common</module>
+        <module>alias-code-gen-web</module>
+        <module>alias-code-gen-webflux</module>
         <module>alias-code-gen-svc</module>
     </modules>
 
@@ -34,12 +37,24 @@
         <druid.version>1.2.15</druid.version>
         <snakeyaml.version>1.33</snakeyaml.version>
         <jackson-bom.version>2.14.1</jackson-bom.version>
-        <gelato.version>2.1.0</gelato.version>
+        <gelato.version>2.5.0</gelato.version>
+        <twilight-web.version>1.0.0</twilight-web.version>
+        <twilight-webflux.version>1.0.0</twilight-webflux.version>
         <maven.flatten.version>1.6.0</maven.flatten.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.yizlan</groupId>
+                <artifactId>alias-code-gen-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yizlan</groupId>
+                <artifactId>alias-code-gen-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -91,8 +106,18 @@
             </dependency>
             <dependency>
                 <groupId>com.yizlan</groupId>
-                <artifactId>gelato-core</artifactId>
+                <artifactId>gelato-canonical</artifactId>
                 <version>${gelato.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yizlan</groupId>
+                <artifactId>twilight-boot-starter-web</artifactId>
+                <version>${twilight-web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yizlan</groupId>
+                <artifactId>twilight-boot-starter-webflux</artifactId>
+                <version>${twilight-webflux.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

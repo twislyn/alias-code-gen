@@ -1,7 +1,7 @@
 package com.yizlan.code.gen.enums;
 
 import com.yizlan.code.gen.constant.Constants;
-import com.yizlan.gelato.core.enums.BinaryEnum;
+import com.yizlan.gelato.canonical.enums.BinaryEnum;
 
 /**
  * mapper xml enum

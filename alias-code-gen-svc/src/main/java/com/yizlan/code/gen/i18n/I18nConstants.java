@@ -9,13 +9,13 @@ package com.yizlan.code.gen.i18n;
  */
 public interface I18nConstants {
 
-    interface DataSource{
+    interface DataSource {
         // 数据库初始化失败
         String DS0001 = "DS0001";
     }
 
-    interface Jdbc{
-        // 未找匹配到该url
+    interface Jdbc {
+        // 未匹配到该url
         String JU0001 = "JU0001";
     }
 }

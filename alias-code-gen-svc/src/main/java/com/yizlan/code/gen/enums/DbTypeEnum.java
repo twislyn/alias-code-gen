@@ -1,7 +1,7 @@
 package com.yizlan.code.gen.enums;
 
 import com.baomidou.mybatisplus.annotation.DbType;
-import com.yizlan.gelato.core.enums.BinaryEnum;
+import com.yizlan.gelato.canonical.enums.BinaryEnum;
 
 /**
  * db type enum
