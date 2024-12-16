@@ -58,11 +58,9 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
 
     @Override
     public ProjectSetting init() {
-        @SuppressWarnings("unchecked")
-        List<SystemKeyValue> systemKeyValues = (List<SystemKeyValue>) BiEnum.toList(DbTypeEnum.values(), SystemKeyValue::new);
+        List<SystemKeyValue> systemKeyValues = BiEnum.toList(DbTypeEnum.values(), SystemKeyValue::new);
 
-        @SuppressWarnings("unchecked")
-        List<SystemKeyValue> xmlDirList = (List<SystemKeyValue>) BiEnum.toList(MapperXmlPathEnum.values(), SystemKeyValue::new);
+        List<SystemKeyValue> xmlDirList = BiEnum.toList(MapperXmlPathEnum.values(), SystemKeyValue::new);
 
         return ProjectSetting.builder().dbTypeList(systemKeyValues).xmlDirList(xmlDirList).build();
     }
