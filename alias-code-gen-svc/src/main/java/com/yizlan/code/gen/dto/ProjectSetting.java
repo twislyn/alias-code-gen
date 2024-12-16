@@ -1,5 +1,6 @@
 package com.yizlan.code.gen.dto;
 
+import com.yizlan.code.gen.common.dictionary.SystemKeyValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +23,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class ProjectSetting {
 
-    private List<DictKeyValue> dbTypeList;
+    private List<SystemKeyValue> dbTypeList;
 
-    private List<DictKeyValue> xmlDirList;
+    private List<SystemKeyValue> xmlDirList;
 }

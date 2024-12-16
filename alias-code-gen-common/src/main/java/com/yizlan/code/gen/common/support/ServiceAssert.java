@@ -35,13 +35,12 @@ public class ServiceAssert extends MetaAssert {
 
     static {
         registerFactory(ServiceException.class, new ExceptionFactory<String, ServiceException>() {
-
-            @Override
-            public ServiceException create(String code, Object... args) {
-                return new ServiceException(code, args);
-            }
-
-        });
+                    @Override
+                    public ServiceException create(String code, Object... args) {
+                        return new ServiceException(code, args);
+                    }
+                }
+        );
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.yizlan.code.gen.service.impl;
 
 import com.yizlan.code.gen.constant.Constants;
-import com.yizlan.code.gen.dto.DictKeyValue;
+import com.yizlan.code.gen.common.dictionary.SystemKeyValue;
 import com.yizlan.code.gen.dto.GeneratorParam;
 import com.yizlan.code.gen.dto.JdbcParam;
 import com.yizlan.code.gen.dto.ProjectSetting;
@@ -59,12 +59,12 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
     @Override
     public ProjectSetting init() {
         @SuppressWarnings("unchecked")
-        List<DictKeyValue> dictKeyValues = (List<DictKeyValue>) BiEnum.toList(DbTypeEnum.values(),DictKeyValue::new);
+        List<SystemKeyValue> systemKeyValues = (List<SystemKeyValue>) BiEnum.toList(DbTypeEnum.values(), SystemKeyValue::new);
 
         @SuppressWarnings("unchecked")
-        List<DictKeyValue> xmlDirList = (List<DictKeyValue>) BiEnum.toList(MapperXmlPathEnum.values(), DictKeyValue::new);
+        List<SystemKeyValue> xmlDirList = (List<SystemKeyValue>) BiEnum.toList(MapperXmlPathEnum.values(), SystemKeyValue::new);
 
-        return ProjectSetting.builder().dbTypeList(dictKeyValues).xmlDirList(xmlDirList).build();
+        return ProjectSetting.builder().dbTypeList(systemKeyValues).xmlDirList(xmlDirList).build();
     }
 
     @Override

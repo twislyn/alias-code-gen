@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
         String defaultMessage = ArrayUtils.isEmpty(args) ? code : String.valueOf(args[0]);
         String message = messageSource.getMessage(code, e.getArgs(), defaultMessage, LocaleContextHolder.getLocale());
 
-        log.error("occurred i18n exception：{}, e: {}", message, e.getMessage());
+        log.error("occurred service exception：{}, e: {}", message, e.getMessage());
 
         return wrap(code, message);
     }

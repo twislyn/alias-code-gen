@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.yizlan</groupId>
         <artifactId>alias-code-gen</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>alias-code-gen-webflux</artifactId>
