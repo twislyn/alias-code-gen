@@ -48,17 +48,17 @@
             <dependency>
                 <groupId>com.yizlan</groupId>
                 <artifactId>alias-code-gen-common</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.yizlan</groupId>
                 <artifactId>alias-code-gen-web</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.yizlan</groupId>
                 <artifactId>alias-code-gen-webflux</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
