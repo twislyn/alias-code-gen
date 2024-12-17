@@ -23,7 +23,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class ProjectSetting {
 
-    private List<SystemKeyValue> dbTypeList;
+    private List<SystemKeyValue> dbTypes;
 
-    private List<SystemKeyValue> xmlDirList;
+    private List<SystemKeyValue> xmlDirs;
 }

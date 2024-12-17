@@ -230,8 +230,8 @@ export default {
 
       const data = await initApi()
       if (data === false) return
-      this.$refs.projectsRef.setOptions('dbType', formatListToOptions(data.dbTypeList, 'itemText', 'itemValue'))
-      this.$refs.projectsRef.setOptions('xmlTargetDir', formatListToOptions(data.xmlDirList, 'itemText', 'itemValue'))
+      this.$refs.projectsRef.setOptions('dbType', formatListToOptions(data.dbTypes, 'itemText', 'itemValue'))
+      this.$refs.projectsRef.setOptions('xmlTargetDir', formatListToOptions(data.xmlDirs, 'itemText', 'itemValue'))
     },
     async next() {
       if (this.current === 0) {

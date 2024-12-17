@@ -58,11 +58,11 @@ public class GenerateServiceImpl extends AbstractGenerateServiceImpl implements 
 
     @Override
     public ProjectSetting init() {
-        List<SystemKeyValue> systemKeyValues = BiEnum.toList(DbTypeEnum.values(), SystemKeyValue::new);
+        List<SystemKeyValue> dbTypes = BiEnum.toList(DbTypeEnum.values(), SystemKeyValue::new);
 
-        List<SystemKeyValue> xmlDirList = BiEnum.toList(MapperXmlPathEnum.values(), SystemKeyValue::new);
+        List<SystemKeyValue> xmlDirs = BiEnum.toList(MapperXmlPathEnum.values(), SystemKeyValue::new);
 
-        return ProjectSetting.builder().dbTypeList(systemKeyValues).xmlDirList(xmlDirList).build();
+        return ProjectSetting.builder().dbTypes(dbTypes).xmlDirs(xmlDirs).build();
     }
 
     @Override
