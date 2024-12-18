@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>alias-code-gen</artifactId>
-        <groupId>com.alias</groupId>
-        <version>1.0.0</version>
+        <groupId>com.yizlan</groupId>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -31,6 +31,8 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
+                            <nodeDownloadRoot>https://npmmirror.com/mirrors/node/</nodeDownloadRoot>
+                            <npmDownloadRoot>https://registry.npmmirror.com/-/</npmDownloadRoot>
                             <nodeVersion>v14.19.1</nodeVersion>
                         </configuration>
                     </execution>
@@ -45,7 +47,7 @@
                         <!-- Optional configuration which provides for running any npm command -->
                         <configuration>
                             <arguments>install</arguments>
-                            <npmRegistryURL>https://registry.npm.taobao.org</npmRegistryURL>
+                            <npmRegistryURL>https://registry.npmmirror.com/</npmRegistryURL>
                         </configuration>
                     </execution>
                     <!-- Build and minify static files -->
