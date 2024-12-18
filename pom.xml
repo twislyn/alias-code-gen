@@ -7,7 +7,7 @@
     <groupId>com.alias</groupId>
     <artifactId>alias-code-gen</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <modules>
         <module>alias-code-gen-client</module>
         <module>alias-code-gen-svc</module>
