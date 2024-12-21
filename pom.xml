@@ -4,14 +4,41 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.alias</groupId>
+    <groupId>com.yizlan</groupId>
     <artifactId>alias-code-gen</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <modules>
         <module>alias-code-gen-client</module>
+        <module>alias-code-gen-common</module>
+        <module>alias-code-gen-web</module>
+        <module>alias-code-gen-webflux</module>
         <module>alias-code-gen-svc</module>
     </modules>
+
+    <name>${project.artifactId}</name>
+    <description>This is a code generator that can generate java or kotlin projects with mybatis-plus.</description>
+    <url>https://atomgit.com/sosiao/alias-code-gen</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Zen Gershon</name>
+            <email>aiilary@163.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@atomgit.com:sosiao/alias-code-gen.git</connection>
+        <developerConnection>scm:git:git@atomgit.com:sosiao/alias-code-gen.git</developerConnection>
+        <url>https://atomgit.com/sosiao/alias-code-gen.git</url>
+    </scm>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -24,19 +51,39 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <revision>2.0.0</revision>
         <mysql.version>8.0.30</mysql.version>
         <postgresql.version>42.3.8</postgresql.version>
         <oracle.version>11.2.0.4</oracle.version>
         <sqlserver.version>8.2.2.jre8</sqlserver.version>
-        <mybatisplus.version>3.5.2</mybatisplus.version>
+        <mybatisplus.version>3.5.4.1</mybatisplus.version>
         <cglib.version>3.3.0</cglib.version>
         <druid.version>1.2.15</druid.version>
         <snakeyaml.version>1.33</snakeyaml.version>
         <jackson-bom.version>2.14.1</jackson-bom.version>
+        <gelato.version>2.5.0</gelato.version>
+        <twilight-web.version>1.0.0</twilight-web.version>
+        <twilight-webflux.version>1.0.0</twilight-webflux.version>
+        <maven.flatten.version>1.6.0</maven.flatten.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.yizlan</groupId>
+                <artifactId>alias-code-gen-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yizlan</groupId>
+                <artifactId>alias-code-gen-web</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yizlan</groupId>
+                <artifactId>alias-code-gen-webflux</artifactId>
+                <version>${revision}</version>
+            </dependency>
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -86,7 +133,52 @@
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.yizlan</groupId>
+                <artifactId>gelato-canonical</artifactId>
+                <version>${gelato.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yizlan</groupId>
+                <artifactId>twilight-boot-starter-web</artifactId>
+                <version>${twilight-web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yizlan</groupId>
+                <artifactId>twilight-boot-starter-webflux</artifactId>
+                <version>${twilight-webflux.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.2.5</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

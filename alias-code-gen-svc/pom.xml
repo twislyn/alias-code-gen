@@ -4,17 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>alias-code-gen</artifactId>
-        <groupId>com.alias</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>com.yizlan</groupId>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>alias-code-gen-svc</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.yizlan</groupId>
+            <artifactId>alias-code-gen-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yizlan</groupId>
+            <artifactId>alias-code-gen-web</artifactId>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -66,10 +71,6 @@
             <artifactId>h2</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>

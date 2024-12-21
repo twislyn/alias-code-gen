@@ -161,7 +161,7 @@ export default {
       this.projects.itemList = [
         { type: "input", label: "项目路径", prop: "projectLocation", help: "生成代码的项目路径，配置到项目根目录即可", },
         { type: "input", label: "开发者", prop: "developer", help: "开发人员名称", },
-        { type: "input", label: "包名", prop: "packageName",  help: "业务模块包路径，例如：com.aliaszen.**.**.base", },
+        { type: "input", label: "包名", prop: "packageName",  help: "业务模块包路径，例如：com.yizlan.**.**.base", },
         { type: "select", label: "数据库类型", prop: "dbType", },
         { type: "input", label: "地址", prop: "host", help: "数据库地址格式：ip:port", },
         { type: "input", label: "schema", prop: "schema", help: "数据库schema, 部分数据库适用", },
@@ -230,8 +230,8 @@ export default {
 
       const data = await initApi()
       if (data === false) return
-      this.$refs.projectsRef.setOptions('dbType', formatListToOptions(data.dbTypeList, 'itemText', 'itemValue'))
-      this.$refs.projectsRef.setOptions('xmlTargetDir', formatListToOptions(data.xmlDirList, 'itemText', 'itemValue'))
+      this.$refs.projectsRef.setOptions('dbType', formatListToOptions(data.dbTypes, 'itemText', 'itemValue'))
+      this.$refs.projectsRef.setOptions('xmlTargetDir', formatListToOptions(data.xmlDirs, 'itemText', 'itemValue'))
     },
     async next() {
       if (this.current === 0) {
